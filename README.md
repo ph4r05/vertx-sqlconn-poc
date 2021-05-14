@@ -1,5 +1,7 @@
 ## Vertx SQLConnection PoC
 
+PoC of the race condition described in https://github.com/vert-x3/vertx-lang-kotlin/issues/195
+
 - Starts REST server that performs DB PING `SELECT 1` on endpoint `/api/status`
 - Starts a single client querying this endpoint to ensure everything works
 - Starts another 499 clients causing race condition and connection leakage
