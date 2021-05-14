@@ -1,0 +1,7 @@
+**.class
+**.cls
+build/
+.gradle/
+.idea/
+.vertx/
+gradle/wrapper/gradle-wrapper.jar
