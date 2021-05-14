@@ -1,0 +1,60 @@
+buildscript {
+    ext.vertxVersion = '3.9.7'
+}
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+    id 'application'
+}
+
+group 'me.deadcode'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    implementation "io.vertx:vertx-core:$vertxVersion"
+    implementation "io.vertx:vertx-lang-kotlin:$vertxVersion"
+    implementation "io.vertx:vertx-lang-kotlin-coroutines:$vertxVersion"
+    implementation "io.vertx:vertx-sql-common:$vertxVersion"
+    implementation "io.vertx:vertx-jdbc-client:$vertxVersion"
+    implementation "io.vertx:vertx-web:$vertxVersion"
+    implementation "io.vertx:vertx-web-client:$vertxVersion"
+    implementation 'org.apache.httpcomponents:httpclient:4.5.11'
+    implementation "com.github.ajalt:clikt:2.6.0"
+
+    implementation group: "org.slf4j", name: "slf4j-api", version: "1.7.30"
+    implementation group: "io.undertow", name: "undertow-core", version: "2.0.26.Final"
+    implementation group: "ch.qos.logback", name: "logback-classic", version: "1.2.3"
+    implementation group: "ch.qos.logback", name: "logback-core", version: "1.2.3"
+    implementation group: "org.codehaus.janino", name: "janino", version: "2.6.1"
+
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.2'
+    implementation 'mysql:mysql-connector-java:8.0.25'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+run {
+    systemProperties System.getProperties()
+    properties.put("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.SLF4JLogDelegateFactory")
+    args System.getProperty("exec.args", "").split()
+}
